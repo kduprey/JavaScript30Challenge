@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <div></div>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -32,28 +35,117 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    let oldInvestors = inventors.filter((item) => {
+      return item.year >= 1500 && item.year < 1600;
+    });
+    document.querySelector('div').append("List of investorys born in 1500s: ");
+    oldInvestors.forEach(element => {
+      document.querySelector('div').insertAdjacentHTML("beforeend", "<li>" + element.first + " " + element.last + "</li>")
+    });
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+
+    let names = inventors.map((element) => {
+      return {
+        first: element.first,
+        last: element.last
+      }
+    });
+
+    document.querySelector('div').append("List of inventors first and last names:");
+    names.forEach(element => {
+      document.querySelector('div').insertAdjacentHTML("beforeend", "<li>" + element.first + " " + element.last + "</li>")
+    });
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    let sorted = inventors.sort((a, b) => {
+      return a.year > b.year ? 1 : a.year < b.year ? -1 : 0;
+    });
+
+    document.querySelector('div').append("List of inventors sorted from oldest to youngest:");
+    sorted.forEach(element => {
+      document.querySelector('div').insertAdjacentHTML("beforeend", "<li>" + element.first + " " + element.last + " " + element.year + "</li>")
+    });
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
+    let years = inventors.reduce((a, c) => {
+      return a + (c.passed - c.year)
+    }, 0);
+
+    document.querySelector('div').append("The total amount of years all the inventors lived: " + years);
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
+
     // 5. Sort the inventors by years lived
+
+    let sortedYears = inventors.sort((a, b) => {
+      return a.passed - a.lived > b.passed - b.lived ? 1 : a.passed - a.year < b.passed - b.year ? -1 : 0;
+    });
+
+    document.querySelector('div').append("List of inventors sorted by years lived:");
+    sortedYears.forEach(element => {
+      document.querySelector('div').insertAdjacentHTML("beforeend", "<li>" + element.first + " " + element.last + " " + (element.passed - element.year) + "</li>")
+    });
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
+    // const de = links
+    //             .map(link => link.textContent)
+    //             .filter(streetName => streetName.includes('de'));
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    let alpha = inventors.sort((a, b) => {
+      let nameA = a.last.toUpperCase();
+      let nameB = b.last.toUpperCase();
+      return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+    });
+
+    document.querySelector('div').append("List of inventors sorted by last name:");
+    alpha.forEach(element => {
+      document.querySelector('div').insertAdjacentHTML("beforeend", "<li>" + element.first + " " + element.last + "</li>")
+    });
+
+    document.querySelector('div').insertAdjacentHTML("beforeend", "<br>");
+
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    let sum = data.reduce((obj, c) => {
+      if (!obj[c]) {
+        obj[c] = 0
+      }
+
+      obj[c]++;
+      return obj;
+    }, {});
+
+
+    console.log(sum);
+
 
   </script>
 </body>
+
 </html>
